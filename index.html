@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扫码观看-信息登记平台</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <h1><i class="fas fa-qrcode"></i> 扫码观看登记平台</h1>
+        <p>请先完成信息登记，再观看视频</p>
+    </header>
+
+    <!-- 信息登记模块：部门改为下拉选择框 -->
+    <section class="register-box" id="registerBox">
+        <div class="register-form">
+            <h2>人员信息登记</h2>
+            <form id="registerForm">
+                <div class="form-item">
+                    <label for="name"><i class="fas fa-user"></i> 姓名：</label>
+                    <input type="text" id="name" placeholder="请输入真实姓名" required>
+                </div>
+                <div class="form-item">
+                    <label for="dept1"><i class="fas fa-building"></i> 一级部门：</label>
+                    <select id="dept1" required>
+                        <option value="">请选择一级部门</option>
+                        <option value="造船事业一部">造船事业一部</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label for="dept2"><i class="fas fa-building-user"></i> 二级部门：</label>
+                    <select id="dept2" required>
+                        <option value="">请选择二级部门</option>
+                        <option value="制造部">制造部</option>
+                        <option value="搭载涂装部">搭载涂装部</option>
+                        <option value="总装部">总装部</option>
+                        <option value="特船工程部">特船工程部</option>
+                        <option value="技术工法部">技术工法部</option>
+                        <option value="生产运行部">生产运行部</option>
+                        <option value="综合管理部">综合管理部</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label for="workstation"><i class="fas fa-map-marker-alt"></i> 工号：</label>
+                    <input type="text" id="workstation" placeholder="请输入具体工号（如：L000001）" required>
+                </div>
+                <div class="form-item">
+                    <label for="phone"><i class="fas fa-phone"></i> 手机号：</label>
+                    <input type="tel" id="phone" placeholder="请输入手机号" pattern="^1[3-9]\d{9}$" required>
+                </div>
+                <div class="form-item">
+                    <label for="remark"><i class="fas fa-comment"></i> 备注（选填）：</label>
+                    <input type="text" id="remark" placeholder="如：起重作业安全培训、设备操作学习">
+                </div>
+                <button type="submit" class="submit-btn"><i class="fas fa-check"></i> 提交并观看</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 视频播放模块（无修改） -->
+    <section class="video-box" id="videoBox" style="display: none;">
+        <div class="video-player">
+            <h3>视频播放：<span id="videoTitle">安全宣教专用视频</span></h3>
+            <video id="video" controls width="100%" height="auto" poster="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/img/bootstrap-logo.svg">
+                <source src="你的视频链接.mp4" type="video/mp4">
+                你的浏览器不支持视频播放，请更换浏览器后重试！
+            </video>
+            <p class="watch-tip"><i class="fas fa-clock"></i> 已观看时长：<span id="watchTime">00:00</span></p>
+        </div>
+    </section>
+
+    <!-- 管理员模块：表格列不变，展示下拉选择的部门值 -->
+    <section class="admin-box">
+        <button class="admin-btn" id="adminBtn"><i class="fas fa-cog"></i> 管理员入口</button>
+        <div class="admin-login" id="adminLogin" style="display: none;">
+            <input type="password" id="adminPwd" placeholder="输入管理员密码" value="123456">
+            <button id="loginBtn">登录</button>
+        </div>
+        <div class="record-list" id="recordList" style="display: none;">
+            <h3>观看人员登记记录 <button id="exportBtn" class="export-btn"><i class="fas fa-download"></i> 导出Excel</button></h3>
+            <table id="recordTable">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>姓名</th>
+                        <th>一级部门</th>
+                        <th>二级部门</th>
+                        <th>工号</th>
+                        <th>手机号</th>
+                        <th>备注</th>
+                        <th>登记时间</th>
+                        <th>累计观看时长</th>
+                    </tr>
+                </thead>
+                <tbody id="recordTbody"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</body>
+</html>
